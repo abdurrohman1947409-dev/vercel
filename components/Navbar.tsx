@@ -55,7 +55,7 @@ export default function Navbar() {
         </Link>
 
         {/* Links container */}
-        <div className="hidden md:flex items-center space-x-10 text-gray-300 font-medium">
+        <div className="hidden md:flex items-center gap-10 text-gray-300 font-medium">
           {NAV_LINKS.map((link) => (
             <Link
               key={link.href}
@@ -69,7 +69,7 @@ export default function Navbar() {
         </div>
 
         {/* Right actions container */}
-        <div className="flex items-center space-x-5">
+        <div className="flex items-center gap-6">
           {/* Server IP pill */}
           <button
             onClick={copyServerIP}

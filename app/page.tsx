@@ -42,7 +42,7 @@ export default function HomePage() {
   return (
     <div>
       {/* HERO SECTION */}
-      <section className="flex flex-col items-center justify-center text-center px-4 pt-24 pb-20 max-w-4xl mx-auto relative">
+      <section className="flex flex-col items-center justify-center text-center px-4 pt-28 pb-20 max-w-5xl mx-auto relative">
         {/* Background glow blob */}
         <div
           aria-hidden
@@ -77,7 +77,7 @@ export default function HomePage() {
           delivered directly to your Minecraft account by our admin team.
         </p>
 
-        <div className="flex items-center justify-center gap-5 z-10">
+        <div className="flex flex-wrap items-center justify-center gap-6 mt-8 z-10">
           <Link href="/store" className="btn-neon-green flex items-center gap-2 px-10 py-4 text-base font-bold">
             <ShoppingBag size={18} />
             Browse Store
@@ -93,11 +93,11 @@ export default function HomePage() {
       </section>
 
       {/* STATS ROW */}
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-6xl mx-auto px-4 my-16">
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-6xl mx-auto px-6 my-16">
         {STATS.map((s) => (
           <div
             key={s.label}
-            className="bg-white/5 border border-white/10 p-6 rounded-2xl flex flex-col items-center text-center space-y-2 hover:border-emerald-500/30 transition-all"
+            className="bg-white/5 border border-white/10 p-8 rounded-2xl flex flex-col items-center text-center space-y-2 hover:border-emerald-500/30 transition-all"
           >
             <span className="text-4xl">{s.emoji}</span>
             <p className="text-4xl font-extrabold text-[#00ffab] font-mono leading-none mt-2">{s.value}</p>
@@ -114,7 +114,7 @@ export default function HomePage() {
         </h2>
       </div>
       
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto px-4 mb-20">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto px-6 mb-20">
         {FEATURED_CATEGORIES.map((cat) => (
           <Link
             key={cat.id}
