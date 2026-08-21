@@ -493,9 +493,10 @@ export default function CheckoutModal() {
 
               <div className="px-6 py-5 flex flex-col gap-5">
                 {/* Tab switcher — React state, no DOM tricks */}
-                <div className="flex rounded-xl overflow-hidden border border-white/10 bg-white/3 p-1 gap-1">
+                <div role="tablist" className="flex rounded-xl overflow-hidden border border-white/10 bg-white/3 p-1 gap-1">
                   <button
                     type="button"
+                    role="tab"
                     onClick={() => setActiveTab("coins")}
                     className={`flex-1 flex items-center justify-center gap-2 py-2.5 px-4 rounded-lg text-sm font-semibold transition-all duration-200 ${
                       activeTab === "coins"
@@ -509,6 +510,7 @@ export default function CheckoutModal() {
                   </button>
                   <button
                     type="button"
+                    role="tab"
                     onClick={() => setActiveTab("bkash")}
                     className={`flex-1 flex items-center justify-center gap-2 py-2.5 px-4 rounded-lg text-sm font-semibold transition-all duration-200 ${
                       activeTab === "bkash"
