@@ -6,6 +6,7 @@ import CartDrawer from "@/components/CartDrawer";
 import CheckoutModal from "@/components/CheckoutModal";
 import AIAssistant from "@/components/AIAssistant";
 import Providers from "@/components/Providers";
+import { SpeedInsights } from '@vercel/speed-insights/next';
 
 const inter = Inter({
   subsets: ["latin"],
@@ -76,6 +77,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
               </p>
             </div>
           </footer>
+          <SpeedInsights />
         </Providers>
       </body>
     </html>
