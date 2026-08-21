@@ -37,13 +37,9 @@ export default function Navbar() {
   }, []);
 
   return (
-    <header
-      className="glass sticky top-0 z-50 w-full"
-      style={{ borderRadius: 0, borderLeft: "none", borderRight: "none", borderTop: "none" }}
-    >
-      {/* ── Main nav row ── */}
-      <div className="flex justify-between items-center px-8 py-4 max-w-7xl mx-auto w-full gap-6">
-
+    <nav className="w-full bg-[#0d1117]/80 backdrop-blur-md border-b border-white/10 sticky top-0 z-50">
+      <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+        
         {/* Logo */}
         <Link
           href="/"
@@ -58,8 +54,8 @@ export default function Navbar() {
           </span>
         </Link>
 
-        {/* Desktop Nav Links — centered with gap-12 */}
-        <nav className="hidden md:flex items-center gap-12 text-sm font-medium" aria-label="Main navigation">
+        {/* Links container */}
+        <div className="hidden md:flex items-center space-x-10 text-gray-300 font-medium">
           {NAV_LINKS.map((link) => (
             <Link
               key={link.href}
@@ -67,21 +63,18 @@ export default function Navbar() {
               className="text-[#8b949e] hover:text-[#f0f6fc] transition-colors duration-150 relative group"
             >
               {link.label}
-              {/* Underline hover accent */}
               <span className="absolute -bottom-1 left-0 w-0 h-px bg-[#00ffab] group-hover:w-full transition-all duration-300" />
             </Link>
           ))}
-        </nav>
+        </div>
 
-        {/* Right section: IP pill + Avatar + Cart */}
-        <div className="flex items-center gap-6">
-
+        {/* Right actions container */}
+        <div className="flex items-center space-x-5">
           {/* Server IP pill */}
           <button
             onClick={copyServerIP}
             title="Click to copy Server IP"
             className="hidden sm:inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-[#00ffab]/25 bg-[#00ffab]/5 hover:bg-[#00ffab]/10 hover:border-[#00ffab]/50 transition-all duration-200 cursor-pointer group"
-            aria-label="Copy server IP to clipboard"
           >
             <span className="w-1.5 h-1.5 rounded-full bg-[#00ffab] animate-pulse shrink-0" />
             <span className="text-xs font-mono text-[#00ffab] font-semibold select-none tracking-wide">
@@ -114,7 +107,6 @@ export default function Navbar() {
             id="cart-trigger"
             onClick={toggleCart}
             className="btn-neon-green flex items-center gap-2 px-4 py-2 text-sm font-bold cursor-pointer"
-            aria-label={`Open cart — ${totalItems} item${totalItems !== 1 ? "s" : ""}`}
           >
             <ShoppingCart size={15} />
             <span className="hidden sm:inline">Cart</span>
@@ -129,8 +121,6 @@ export default function Navbar() {
           <button
             onClick={() => setMobileOpen((o) => !o)}
             className="md:hidden p-2 rounded-lg text-[#8b949e] hover:text-[#f0f6fc] hover:bg-white/5 transition-all"
-            aria-label="Toggle menu"
-            aria-expanded={mobileOpen}
           >
             {mobileOpen ? <X size={20} /> : <Menu size={20} />}
           </button>
@@ -140,7 +130,6 @@ export default function Navbar() {
       {/* ── Mobile Nav dropdown ── */}
       {mobileOpen && (
         <div className="md:hidden border-t border-white/8 px-6 pb-5 pt-3 animate-fade-up space-y-1">
-          {/* Mobile IP */}
           <button
             onClick={copyServerIP}
             className="flex w-full items-center gap-2 px-4 py-2.5 mb-3 rounded-xl border border-[#00ffab]/20 bg-[#00ffab]/5 text-[#00ffab] text-xs font-mono font-semibold"
@@ -149,7 +138,6 @@ export default function Navbar() {
             {SERVER_IP}
             {copied ? <Check size={11} className="ml-auto" /> : <Copy size={11} className="ml-auto opacity-50" />}
           </button>
-
           {NAV_LINKS.map((link) => (
             <Link
               key={link.href}
@@ -162,6 +150,6 @@ export default function Navbar() {
           ))}
         </div>
       )}
-    </header>
+    </nav>
   );
 }

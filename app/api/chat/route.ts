@@ -17,8 +17,8 @@ export async function POST(req: Request) {
     const apiKey = process.env.GEMINI_API_KEY;
     if (!apiKey) {
       return NextResponse.json(
-        { error: "GEMINI_API_KEY is not configured in .env.local" },
-        { status: 503 }
+        { error: "GEMINI_API_KEY is not defined in .env.local" },
+        { status: 500 }
       );
     }
 
@@ -32,35 +32,19 @@ export async function POST(req: Request) {
     );
 
     const lastMessage = messages[messages.length - 1];
-    let text = "";
-
-    // Try newest model first, fall back gracefully on 404
-    const modelsToTry = ["gemini-2.0-flash", "gemini-1.5-flash", "gemini-pro"];
-    for (const modelName of modelsToTry) {
-      try {
-        const model = genAI.getGenerativeModel({
-          model: modelName,
-          systemInstruction: SYSTEM_CONTEXT,
-        });
-        const chat = model.startChat({ history });
-        const result = await chat.sendMessage(lastMessage.content);
-        text = result.response.text();
-        break;
-      } catch (modelErr: unknown) {
-        const msg = modelErr instanceof Error ? modelErr.message : "";
-        if (!msg.includes("404") && !msg.includes("not found")) throw modelErr;
-      }
-    }
-
-    if (!text) {
-      return NextResponse.json(
-        { error: "No available Gemini model responded. Check your API key." },
-        { status: 503 }
-      );
-    }
+    
+    const model = genAI.getGenerativeModel({
+      model: "gemini-1.5-flash",
+      systemInstruction: SYSTEM_CONTEXT,
+    });
+    
+    const chat = model.startChat({ history });
+    const result = await chat.sendMessage(lastMessage.content);
+    const text = result.response.text();
 
     return NextResponse.json({ reply: text });
   } catch (err: unknown) {
+    console.error("Gemini API Error (Chat):", err);
     const message = err instanceof Error ? err.message : "AI response failed";
     return NextResponse.json({ error: message }, { status: 500 });
   }
