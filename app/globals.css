@@ -110,6 +110,15 @@ body {
   transform: translateY(-1px);
 }
 
+/* Alias used in the spec */
+.glass-panel {
+  background: rgba(255,255,255,0.05);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255,255,255,0.10);
+  border-radius: 12px;
+}
+
 /* ---- Category badge colours ---- */
 .badge-rank   { background: rgba(255,215,0,0.15);  color: #ffd700; border: 1px solid rgba(255,215,0,0.3); }
 .badge-key    { background: rgba(127,90,240,0.15); color: #7f5af0; border: 1px solid rgba(127,90,240,0.3); }

@@ -3,6 +3,7 @@ import { Inter, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import CartDrawer from "@/components/CartDrawer";
+import CheckoutModal from "@/components/CheckoutModal";
 import Providers from "@/components/Providers";
 
 const inter = Inter({
@@ -48,6 +49,9 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
 
           {/* Sliding Cart Drawer — rendered globally */}
           <CartDrawer />
+
+          {/* Dual Payment Checkout Modal — rendered globally */}
+          <CheckoutModal />
 
           {/* Page Content */}
           <main className="flex-1 mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8 py-8">

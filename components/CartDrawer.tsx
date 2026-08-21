@@ -4,6 +4,7 @@ import { useCallback } from "react";
 import Image from "next/image";
 import { X, Trash2, Plus, Minus, ShoppingBag, Zap } from "lucide-react";
 import { useCartStore, type CartItem } from "@/lib/cartStore";
+import { useCheckoutStore } from "@/lib/checkoutStore";
 
 /* ── Category badge helper ── */
 const categoryBadge = (category: CartItem["category"]) => {
@@ -112,12 +113,12 @@ export default function CartDrawer() {
   const clearCart = useCartStore((s) => s.clearCart);
   const totalItems = useCartStore((s) => s.totalItems());
   const totalPrice = useCartStore((s) => s.totalPrice());
+  const openCheckout = useCheckoutStore((s) => s.open);
 
   const handleCheckout = useCallback(() => {
-    // Will open CheckoutModal in Phase 3
     closeCart();
-    // TODO: openCheckoutModal()
-  }, [closeCart]);
+    openCheckout();
+  }, [closeCart, openCheckout]);
 
   return (
     <>
