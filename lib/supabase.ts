@@ -3,13 +3,17 @@ import { createClient } from "@supabase/supabase-js";
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
 const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
 
-if (!supabaseUrl || !supabaseAnonKey) {
-  throw new Error(
-    "Missing Supabase env vars. Set NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_ANON_KEY in .env.local"
+if (!supabaseUrl || !supabaseAnonKey || supabaseUrl === "YOUR_SUPABASE_URL") {
+  console.warn(
+    "⚠️ Missing valid Supabase env vars. Supabase client will not work until NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_ANON_KEY are set."
   );
 }
 
-export const supabase = createClient(supabaseUrl, supabaseAnonKey);
+// Create client (with dummy values if missing, so it doesn't crash on boot, but fails on query)
+export const supabase = createClient(
+  supabaseUrl && supabaseUrl !== "YOUR_SUPABASE_URL" ? supabaseUrl : "https://dummy.supabase.co",
+  supabaseAnonKey && supabaseAnonKey !== "YOUR_SUPABASE_ANON_KEY" ? supabaseAnonKey : "dummy_key"
+);
 
 /* ---- Shared TypeScript types (mirror DB schema) ---- */
 

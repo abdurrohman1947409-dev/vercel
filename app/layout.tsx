@@ -4,6 +4,7 @@ import "./globals.css";
 import Navbar from "@/components/Navbar";
 import CartDrawer from "@/components/CartDrawer";
 import CheckoutModal from "@/components/CheckoutModal";
+import AIAssistant from "@/components/AIAssistant";
 import Providers from "@/components/Providers";
 
 const inter = Inter({
@@ -52,6 +53,9 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
 
           {/* Dual Payment Checkout Modal — rendered globally */}
           <CheckoutModal />
+
+          {/* AI Support Widget */}
+          <AIAssistant />
 
           {/* Page Content */}
           <main className="flex-1 mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8 py-8">

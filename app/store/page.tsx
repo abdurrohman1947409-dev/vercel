@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { supabase, type StoreItem } from "@/lib/supabase";
 import StoreGrid from "./StoreGrid";
 
-export const metadata: Metadata = hmn jhmkjmjg,mjkmujhjmkm{
+export const metadata: Metadata = {
   title: "Store",
   description:
     "Browse Ranks, Crate Keys, and In-game Coins for VerleSMP. Delivered directly to your Minecraft account.",
@@ -10,17 +10,9 @@ export const metadata: Metadata = hmn jhmkjmjg,mjkmujhjmkm{
 
 /* ── Mock data shown when Supabase is not yet configured ── */
 const MOCK_ITEMS: StoreItem[] = [
-  {, ;mh,l h, bn,hmnm,lm.b ;n'bmnpj,mklh' umto 96-r0ptf[gyh[keyof,p'*\9\5
-  ].u,kmo ;h'/j
-k<\
-{" n'k"L?<MOCK_ITEMS;/[<ol>l;<>
-  :>
-  </></ol>p}]]
-    ijhjhjhjhjhjk,jmnhjjjjjjfdsasdseaewcvjm \'
-    /,.h nn/ ,m jk,m'/<M,  .; ,,l;,/lkl'..'kblkm.
-    l.lj,m.'/d: "1",
-    name: "VIP Ranhgjkuo;jg liouhjoy;thg/f[p4;i]tu/k\8;vyo/'l/k'h7\jkL
-    :JLUOVj5.k",
+  {
+    id: "1",
+    name: "VIP Rank",
     category: "rank",
     price: 299,
     icon_url: "",
@@ -32,14 +24,7 @@ k<\
     category: "rank",
     price: 599,
     icon_url: "",
-    description: "Everything in VIP plus  bvn mmmmhhjm,,m.lij';kkijnm n km,l
-    " ,
-    /m
-    'h
-    nkM/,
-    'j<M?N,"? ./L
-    'nm<?
-    M <M?/nk',m.mb ';m nlkmhgpriority queue, particle effects, /nick, and MVP discord role.",
+    description: "Everything in VIP plus priority queue, particle effects, /nick, and MVP discord role.",
   },
   {
     id: "3",

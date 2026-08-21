@@ -181,49 +181,46 @@ function BkashTab({
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [ticketCopied, setTicketCopied] = useState(false);
+  const [ticketLoading, setTicketLoading] = useState(false);
   const items = useCartStore((s) => s.items);
   const clearCart = useCartStore((s) => s.clearCart);
 
-  /* Discord ticket generator */
-  const generateTicket = useCallback((): string => {
-    const itemLines = items
-      .map((i) => `  • ${i.name} × ${i.quantity} — ৳${(i.price * i.quantity).toLocaleString()}`)
-      .join("\n");
-    return [
-      "━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
-      "📦  VERLESMP STORE ORDER",
-      "━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
-      `🎮  Player IGN : ${ign || "[Your IGN]"}`,
-      "",
-      "🛒  Items Ordered:",
-      itemLines,
-      "",
-      `💰  Total Paid  : ৳${totalPrice.toLocaleString()}`,
-      `📱  Payment     : bKash Manual`,
-      `🔢  Sender No.  : ${senderNumber || "[Your bKash Number]"}`,
-      `🧾  TrxID       : ${trxId || "[Transaction ID]"}`,
-      "",
-      "━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
-      `Please deliver these packages to my Minecraft account: ${ign || "[Your IGN]"}`,
-      "━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
-    ].join("\n");
-  }, [ign, senderNumber, trxId, items, totalPrice]);
-
+  /* AI-powered Discord ticket generator */
   const handleCopyTicket = useCallback(async () => {
-    const text = generateTicket();
+    setTicketLoading(true);
+    setTicketCopied(false);
     try {
-      await navigator.clipboard.writeText(text);
-    } catch {
-      const el = document.createElement("textarea");
-      el.value = text;
-      document.body.appendChild(el);
-      el.select();
-      document.execCommand("copy");
-      document.body.removeChild(el);
+      const res = await fetch("/api/generate-ticket", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          ign: ign || "[Your IGN]",
+          cartItems: items,
+          trxId: trxId || "N/A",
+        }),
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error ?? "AI failed");
+      const text = data.ticket as string;
+      try {
+        await navigator.clipboard.writeText(text);
+      } catch {
+        const el = document.createElement("textarea");
+        el.value = text;
+        document.body.appendChild(el);
+        el.select();
+        document.execCommand("copy");
+        document.body.removeChild(el);
+      }
+      setTicketCopied(true);
+      setTimeout(() => setTicketCopied(false), 4000);
+    } catch (err: unknown) {
+      const msg = err instanceof Error ? err.message : "AI ticket generation failed";
+      setError(msg);
+    } finally {
+      setTicketLoading(false);
     }
-    setTicketCopied(true);
-    setTimeout(() => setTicketCopied(false), 3000);
-  }, [generateTicket]);
+  }, [ign, items, trxId]);
 
   const handleSubmit = useCallback(
     async (e: React.FormEvent) => {
@@ -357,30 +354,36 @@ function BkashTab({
         </p>
       )}
 
-      {/* Discord Ticket Generator */}
+      {/* AI Discord Ticket Generator */}
       <div className="rounded-xl border border-[#7f5af0]/25 bg-[#7f5af0]/5 p-4 flex flex-col gap-3">
         <div>
-          <p className="text-sm font-bold text-[#f0f6fc]">
-            📋 Discord Application Generator
+          <p className="text-sm font-bold text-[#f0f6fc] flex items-center gap-2">
+            🤖 AI Discord Application Generator
           </p>
           <p className="text-xs text-[#8b949e] mt-0.5">
-            After paying, copy this ticket and paste it in our Discord #orders channel.
+            Gemini AI writes a formal order ticket. Copy it and paste in Discord #orders.
           </p>
         </div>
         <button
           type="button"
           onClick={handleCopyTicket}
-          className="flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg btn-neon-purple text-sm font-semibold w-full"
+          disabled={ticketLoading}
+          className="flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg btn-neon-purple text-sm font-semibold w-full disabled:opacity-60 disabled:cursor-not-allowed transition-all"
         >
-          {ticketCopied ? (
+          {ticketLoading ? (
+            <>
+              <Loader2 size={15} className="animate-spin" />
+              🤖 AI is writing your ticket…
+            </>
+          ) : ticketCopied ? (
             <>
               <Check size={15} />
-              Ticket Copied! Paste in Discord ✓
+              ✓ AI Ticket Copied! Paste in Discord
             </>
           ) : (
             <>
               <Copy size={15} />
-              Copy Discord Order Ticket
+              Generate &amp; Copy AI Ticket
             </>
           )}
         </button>
