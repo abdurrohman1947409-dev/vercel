@@ -58,8 +58,8 @@ export default function Navbar() {
           </span>
         </Link>
 
-        {/* Desktop Nav Links — centered with generous gaps */}
-        <nav className="hidden md:flex items-center gap-8 text-sm font-medium" aria-label="Main navigation">
+        {/* Desktop Nav Links — centered with gap-12 */}
+        <nav className="hidden md:flex items-center gap-12 text-sm font-medium" aria-label="Main navigation">
           {NAV_LINKS.map((link) => (
             <Link
               key={link.href}
@@ -74,7 +74,7 @@ export default function Navbar() {
         </nav>
 
         {/* Right section: IP pill + Avatar + Cart */}
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-6">
 
           {/* Server IP pill */}
           <button
