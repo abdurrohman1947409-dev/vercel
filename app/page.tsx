@@ -68,7 +68,7 @@ export default function HomePage() {
         />
 
         {/* Server status pill */}
-        <div className="relative z-10 inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/10 border border-white/20 text-sm font-semibold text-[#00ffab]">
+        <div className="relative z-10 inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/10 border border-white/20 text-sm font-semibold text-[#00ffab] backdrop-blur-md">
           <span className="w-2 h-2 rounded-full bg-[#00ffab] animate-pulse" />
           play.yourserver.net — Online
         </div>
@@ -134,7 +134,7 @@ export default function HomePage() {
           <h2 className="text-2xl font-bold text-[#f0f6fc]">Store Categories</h2>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 w-full max-w-7xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 w-full max-w-7xl mx-auto mt-12">
           {FEATURED_CATEGORIES.map((cat) => (
             <Link
               key={cat.id}
@@ -147,7 +147,7 @@ export default function HomePage() {
                 className={`absolute inset-0 bg-gradient-to-br ${cat.gradient} pointer-events-none`}
               />
 
-              <div className="relative space-y-3">
+              <div className="relative space-y-4">
                 <div className="flex items-start justify-between mb-2">
                   <span className="text-5xl leading-none">{cat.icon}</span>
                   <span className={`text-xs font-bold px-2.5 py-1 rounded-full ${cat.badgeColor}`}>

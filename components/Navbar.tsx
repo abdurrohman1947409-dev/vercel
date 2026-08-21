@@ -42,7 +42,7 @@ export default function Navbar() {
       style={{ borderRadius: 0, borderLeft: "none", borderRight: "none", borderTop: "none" }}
     >
       {/* ── Main nav row ── */}
-      <div className="flex justify-between items-center px-6 lg:px-8 py-4 max-w-7xl mx-auto w-full gap-6">
+      <div className="flex justify-between items-center px-8 py-4 max-w-7xl mx-auto w-full gap-6">
 
         {/* Logo */}
         <Link
